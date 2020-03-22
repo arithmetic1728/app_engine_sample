@@ -16,8 +16,8 @@
 from flask import Flask
 import requests
 
-import lib.google.auth.transport.requests
-import lib.google.auth.compute_engine
+import google.auth.transport.requests
+import google.auth.compute_engine
 
 
 # If `entrypoint` is not defined in app.yaml, App Engine will look for an app
@@ -26,13 +26,13 @@ app = Flask(__name__)
 
 REQUESTS_SESSION = requests.Session()
 REQUESTS_SESSION.verify = False
-http_request = lib.google.auth.transport.requests.Request(REQUESTS_SESSION)
+http_request = google.auth.transport.requests.Request(REQUESTS_SESSION)
 
 
 @app.route("/")
 def hello():
     """Return a friendly HTTP greeting."""
-    credentials = lib.google.auth.compute_engine.IDTokenCredentials(
+    credentials = google.auth.compute_engine.IDTokenCredentials(
         http_request, "target_audience", use_metadata_identity_endpoint=True
     )
     try:
