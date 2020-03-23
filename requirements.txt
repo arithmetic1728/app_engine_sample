@@ -1,3 +1,3 @@
 Flask==1.1.1
 requests
-git+https://github.com/googleapis/google-auth-library-python.git@690f2034a51c635755c2a17f9dd8906374654cd4#egg=google_auth
+git+https://github.com/googleapis/google-auth-library-python.git#egg=google_auth
