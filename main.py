@@ -39,7 +39,8 @@ def hello():
         credentials.refresh(http_request)
     except Exception as e:
         return str(e)
-    return credentials.token
+    #return credentials.token
+    return "hello world"
 
 
 if __name__ == "__main__":
