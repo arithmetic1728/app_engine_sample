@@ -17,7 +17,7 @@ from flask import Flask
 import requests
 
 import google.auth.transport.requests
-import google.auth.compute_engine
+from google.oauth2 import id_token
 
 
 # If `entrypoint` is not defined in app.yaml, App Engine will look for an app
@@ -32,15 +32,12 @@ http_request = google.auth.transport.requests.Request(REQUESTS_SESSION)
 @app.route("/")
 def hello():
     """Return a friendly HTTP greeting."""
-    credentials = google.auth.compute_engine.IDTokenCredentials(
-        http_request, "target_audience", use_metadata_identity_endpoint=True
-    )
     try:
-        credentials.refresh(http_request)
+        token = id_token.fetch_id_token(http_request, "https://pubsub.googleapis.com")
     except Exception as e:
         return str(e)
     #return credentials.token
-    return "hello world"
+    return token
 
 
 if __name__ == "__main__":
